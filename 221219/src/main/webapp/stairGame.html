@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		let count = 0;
+		$('#count').val(count);
+		
+		$('#playBtn').click(function() {
+			if($('.rsp:checked').length == 0) {
+				alert('가위/바위/보를 선택하세요.');
+				return;
+			} 
+			
+			// 가위/바위/보 알고리즘 로직
+			
+			// 사용자 선택
+			let rspCls = $('.rsp:checked'); // 배열
+			let myRSP = $(rspCls[0]).val(); // rspCls[0].value 가위, 바위, 보
+			
+			// 컴퓨터 선택
+			let arr = ['가위','바위','보'];
+			let rNum = Math.floor(Math.random() * 3); // 0, 1, 2
+			let comRSP = arr[rNum]
+			
+			console.log('my : ', myRSP, 'com : ', comRSP);
+			
+			// 승패
+			
+			count += 1; // count++; count=count+1;
+			console.log('count : ', count);
+			$('#count').val(count);
+		});
+	});
+</script>
+</head>
+<body>
+   <h1>계단 게임</h1>
+   <form>
+      <fieldset>
+         <legend>가위/바위/보</legend>
+         <input type="text" id="count" readonly="readonly">번째 : 
+         <input type="radio" name="rsp" class="rsp" value="가위">가위
+         <input type="radio" name="rsp" class="rsp" value="바위">바위
+         <input type="radio" name="rsp" class="rsp" value="보">보
+         <button type="button" id="playBtn">play</button>
+      </fieldset>
+   </form>
+   <br>
+   <table border="1">
+      <tr>
+         <td style="width: 50px; background-color: purple;">
+         	<span id="purple">&nbsp;</span>
+         </td>
+         <td rowspan="7" style="text-align: center; vertical-align: bottom;"><span>&#128007</span></td>
+         
+      </tr>
+      <tr>
+         <td style="background-color: navy;">
+         	<span id="navy">&nbsp;</span>
+         </td>
+      </tr>
+      <tr>
+         <td style="background-color: blue;">
+         	<span id="blue">&nbsp;</span>
+         </td>
+      </tr>
+      <tr>
+         <td style="background-color: green;">
+         	<span id="green">&nbsp;</span>
+         </td>
+      </tr>
+      <tr>
+         <td style="background-color: yellow;">
+         	<span id="yellow">&nbsp;</span>
+         </td>
+      </tr>
+      <tr>
+         <td style="background-color: orange;">
+         	<span id="orange">&nbsp;</span>
+         </td>
+      </tr>
+      <tr>
+         <td style="background-color: red;">
+         	<span id="red">&nbsp;</span>
+         </td>
+      </tr>
+   </table>
+</body>
+</html>

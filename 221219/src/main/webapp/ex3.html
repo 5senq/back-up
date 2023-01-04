@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+	// script 코드를 최상에 올려도 문서객체가 접근 가능하도록
+	/*
+	window.addEventListent('load', function() {
+		document.querySelector('#btn').addEventListener('click', function() {
+			alert('test');
+		});
+	})
+	*/
+	$(document).ready(function() { // script 코드를 최상에 올려도 <body>를 읽고 접근하도록
+		$('#btn').click(function() {
+			alert('test');
+		});
+	});
+	
+</script>
+</head>
+<body>
+	<button type="button" id="btn">click!</button>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>clickEvent</title>
+</head>
+<body>
+	<h1>웹페이지에서 자주 발생하는 이벤트</h1>
+	<h2>마우스 이벤트 'click'</h2>
+	<div>
+		주로 버튼 태그에.. 다른 태그들도 가능
+	</div>
+	<div><img src="./" id=""></div>
+	<script>
+		// window.document.getElementById('')
+		/*
+			자바스크립트 함수 표현 방법(this 바인딩 차이)
+			1) 함수 리터럴 사용
+			2) 화살표 함수
+			() => {}
+		*/		
+		document.querySelector('').addEventListener('click', function() {
+			alert('이미지 클릭');
+		});
+	</script>
+	
+	<h2>마우스 이벤트 'blur'</h2>
+	<div>
+		input type = text
+	</div>
+	<div>
+		ID : <input type="text" id="id"><span id="idMsg" style="color:red;"></span>
+	</div>
+	<script>
+		let id = document.querySelector('#id');
+		id.addEventListener('blur', function() {
+			if(id.value.length < 1) {
+				// alert('아이디를 입력하세요.');
+				document.querySelector('#idMsg').innerHTML = ' 아이디를 입력하세요.';
+			} else {
+				alert('입력한 아이디는 ' + id.value + ' 입니다.');
+			}
+		});
+	</script>
+	
+	<h2>폼태그 이벤트 'change'</h2>
+	<div>
+		select 태그
+	</div>
+	<div>
+		지역 :
+		<select id="local">
+			<option value="" selected="selected">:::지역선택:::</option>
+			<option value="서울">서울</option>
+			<option value="인천">인천</option>
+			<option value="성남">성남</option>
+		</select>
+	</div>
+	<script>
+		document.querySelector('#local');
+		local.addEventListener('change', function() {
+			if(local.value == '') {
+				alert('지역을 선택하세요.');
+			} else {
+				alert(local.value);
+			}
+		});
+	</script>
+	
+	<div>
+		input type=checkbox
+	</div>
+	<div>
+		관심사
+		<input type="checkbox" name="interest" class="interest" value="스포츠">스포츠
+		<input type="checkbox" name="interest" class="interest" value="경제">경제
+		<input type="checkbox" name="interest" class="interest" value="사회">사회
+		<input type="checkbox" name="interest" class="interest" value="역사">역사
+		<input type="checkbox" name="interest" class="interest" value="정치">정치	
+	</div>
+	<script>
+		let interest = document.querySelectorAll('.interest'); // input type 다 받아오는 배열
+		// foreach 반복문
+		interest.forEach(function(item) {
+			item.addEventListener('change', function() {
+				let ckInterest = document.querySelectorAll('.interest:checked')
+				// alert(ckInterest.length);
+				if(ckInterest.length > 3) {
+					alert('3개까지만 선택 가능합니다.');
+					item.checked = false; // 4번째로 체크한 항목을 해체
+				}
+			});
+		});
+	</script>
+	
+	<h2>키보드 이벤트 'keyup'</h2>
+	<div>
+		글자수 :<span id="count"> 0</span> / 10
+		<br>
+		<textarea id="memo" rows="5" cols="50"></textarea>
+	</div>
+	<script>
+		const MAX_COUNT = 10; // 상수선언 : memo 안의 최대 글자수
+		let memo = document.querySelector('#memo')
+		document.querySelector('#memo').addEventListener('keyup', function() {
+			let len = memo.value.length;
+			console.log(len);
+			if(len > MAX_COUNT) { // (MAX_COUNT - len) < 1
+				alert(MAX_COUNT + '자 까지 입력이 가능합니다.');
+				memo.value = memo.value.substring(0, MAX_COUNT);
+			} else {
+				document.querySelector('#count').innerHTML = len;
+			}
+		});
+	</script>
+</body>
+</html>

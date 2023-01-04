@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	myFun1();
+	// 1) 함수선언 방법
+	function myFun1() { // 함수선언 코드가 파일 최상위에 선언된다
+		alert('myFun1 test...');
+	}
+	myFun1();
+	
+	// myFun2(); // error! 함수가 생성되지 않아 ...
+	// 2) function이라는 함수리터럴을 사용하여 변수에 대입하는 방법
+	var myFun2 = function myFun2() {
+		alert('myFun2 test...');
+	}
+	myFun2();
+	
+	// 3) 화살표리터럴을 사용하여 변수에 대입하는 방법
+	// myFun3(); // error!
+	var myFun3 = ()=>{
+		alert('myFun3 test...');
+	}
+
+	// function리터럴함수와 화살표함수의 this 바인딩
+	// ※ 생성자함수의 this바인딩 -> new연산 메모리공간
+	let name = '구디아카데미';
+	window.name = '대한민국';
+	let ban = {name : 'gdj58'
+			, fun1 : function() { // 객체안의 함수 -> 멤버함수 -> 메서드
+				alert('fun1 : '+this.name);
+			}
+			, fun2 : ()=>{
+				alert('fun2 : '+this.name);
+			}
+	}
+	console.log(ban.name);
+	ban.fun1();
+	ban.fun2();
+</script>
+</head>
+<body>
+
+</body>
+</html>

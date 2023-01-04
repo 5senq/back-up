@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>calculator</title>
+<style>
+	/* 계산기 CSS 코드 구현 */
+	td {text-align: center;}
+	input {width: 95%;}
+	button {width: 90%;}
+</style>
+</head>
+<body>
+	<table border="1">
+		<tr>
+			<td colspan="4">
+				GDJ58 Calculator. 
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4">
+				<input type="text" id="output" readonly="readonly">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<button type="button" id="clear">Clear</button>
+			</td>
+			<td colspan="2">
+				<button type="button" id="enter">Enter</button>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<button type="button" id="seven" value="7">7</button>
+			</td>
+			<td>
+				<button type="button" id="eight" value="8">8</button>
+			</td>
+			<td>
+				<button type="button" id="nine" value="9">9</button>
+			</td>
+			<td>
+				<button type="button" id="add">+</button>
+			</td>	
+		</tr>
+		<tr>
+			<td>
+				<button type="button" id="four" value="4">4</button>
+			</td>
+			<td>
+				<button type="button" id="five" value="5">5</button>
+			</td>
+			<td>
+				<button type="button" id="six" value="6">6</button>
+			</td>
+			<td>
+				<button type="button" id="subtract">-</button>
+			</td>	
+		</tr>
+		<tr>
+			<td>
+				<button type="button" id="one" value="1">1</button>
+			</td>
+			<td>
+				<button type="button" id="two" value="2">2</button>
+			</td>
+			<td>
+				<button type="button" id="three" value="3">3</button>
+			</td>
+			<td>
+				<button type="button" id="multiply">*</button>
+			</td>	
+		</tr>
+		<tr>
+			<td colspan="2">
+				<button type="button" id="zero" value="0">0</button>
+			</td>
+			<td>
+				<button type="button" id="dot">.</button>
+			</td>
+			<td>
+				<button type="button" id="divide">/</button>
+			</td>	
+		</tr>
+		<tr>
+			<td colspan="4">
+				Copyright ⓒ GooDee Academy. All rights reserved.
+			</td>
+		</tr>
+	</table>
+	
+	<script>
+		// 계산기 JS 코드 구현
+		let firstNum = 0;
+		let secondNum = 0;
+		let output = document.querySelector('#output');
+		
+		document.querySelector('#add').addEventListener('click', function() {
+			if(output.value != "") {
+				firstNum = output.value;
+				output.value = output.value + "+";
+			}
+		});
+		
+		document.querySelector('#subtract').addEventListener('click', function() {
+			if(output.value != "") {
+				firstNum = output.value;
+				output.value = output.value + "-";
+			}
+		});
+		document.querySelector('#multiply').addEventListener('click', function() {
+			if(output.value != "") {
+				firstNum = output.value;
+				output.value = output.value + "*";
+			}
+		});
+		document.querySelector('#divide').addEventListener('click', function() {
+			if(output.value != "") {
+				firstNum = output.value;
+				output.value = output.value + "/";
+			}
+		});
+		document.querySelector('#dot').addEventListener('click', function() {
+			if(output.value != "") {
+				firstNum = output.value;
+				output.value = output.value + ".";
+			}
+		});
+		document.querySelector('#clear').addEventListener('click', function() {
+			output.value = "";
+		});
+		
+		document.querySelector('#enter').addEventListener('click', function() {
+			if(output.value != "") {
+				console.log(firstNum);
+				secondNum = output.value.substr(firstNum.length + 1);
+				console.log(secondNum);
+				console.log(output.value.substring(firstNum.length, firstNum.length + 1))
+				
+				if(output.value.substring(firstNum.length, firstNum.length + 1) == "*") {
+					output.value = Number(secondNum) * Number(firstNum);
+				} else if(output.value.substring(firstNum.length, firstNum.length + 1) == "+") {
+					output.value = Number(secondNum) + Number(firstNum);
+				} else if(output.value.substring(firstNum.length, firstNum.length + 1) == "-") {
+					output.value = Number(firstNum) - Number(secondNum);
+				} else if(output.value.substring(firstNum.length, firstNum.length + 1) == "/") {
+					output.value = Number(firstNum) / Number(secondNum);
+				}
+			}
+		})
+		
+		
+		/*
+		const $output = document.querySelector('#output');
+		let firstNum = '', secondNum = '', output = '';
+		
+		const onClickNumber = (event) => {
+			if(!output) {
+				firstNum += event.target.textContent;
+				$output.value += event.target.textContent;
+				return;
+			}
+			if(!secondNum) {
+				$output.value = '';
+			}
+			secondNum += event.target.textContent;
+			$output.value += event.target.textContent;
+		};
+		
+		document.querySelector('#zero').addEventListener('click', onClickNumber);
+		document.querySelector('#one').addEventListener('click', onClickNumber);
+		document.querySelector('#two').addEventListener('click', onClickNumber);
+		document.querySelector('#three').addEventListener('click', onClickNumber);
+		document.querySelector('#four').addEventListener('click', onClickNumber);
+		document.querySelector('#five').addEventListener('click', onClickNumber);
+		document.querySelector('#six').addEventListener('click', onClickNumber);
+		document.querySelector('#seven').addEventListener('click', onClickNumber);
+		document.querySelector('#eight').addEventListener('click', onClickNumber);
+		document.querySelector('#nine').addEventListener('click', onClickNumber);
+		
+		const onClickOutput = (op) => () => {
+			if(!firstNum && op === '-') {
+				firstNum += op;
+				$output.value = op;
+			} else {
+				if(firstNum && !output) {
+					output = op;
+					$output.value = op;
+				} else if(!secondNum) {
+					secondNum += op;
+					$output.value = op;
+				} else {
+					alert('x');
+				}
+			}
+		};
+		
+		document.querySelector('#add').addEventListener('click', onClickOutput('+'));
+		document.querySelector('#subtract').addEventListener('click', onClickOutput('-'));
+		document.querySelector('#multiply').addEventListener('click', onClickOutput('*'));
+		document.querySelector('#divide').addEventListener('click', onClickOutput('/'));
+		document.querySelector('#enter').addEventListener('click', () => {
+            if(secondNum) {
+                switch(output) {
+                    case '+':
+                        $output.value = parseInt(firstNum) + parseInt(secondNum);
+                        break;
+                    case '-':
+                        $output.value = firstNum - secondNum;
+                        break;
+                    case '*':
+                        $output.value = firstNum * secondNum;
+                        break;
+                    case '/':
+                        $output.value = firstNum / secondNum;
+                        break;
+                    default:
+                        break;
+                }
+                firstNum = $output.value;
+                secondNum = '';
+                $output.value = '';
+                output = '';
+            } else {
+                alert('숫자를 입력하세요.');
+            }
+		});
+		
+		document.querySelector('#clear').addEventListener('click', () => {
+			firstNum = $output.value;
+            secondNum = '';
+            $output.value = '';
+            output = '';
+		});
+		*/
+	</script>
+</body>
+</html>

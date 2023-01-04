@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	// 1) 객체(프로토타입)를 복사
+	let s1 = {
+				name:null
+				, grade:0
+				, age:0
+				, gender:null
+				, study:function(){
+							console.log('공부한다');
+						}
+			}; // 객체리터럴을 사용
+	
+	s1.name = '루피';
+	s1.grade = 7;
+	s1.age = 19;
+	s1.gender = '남'
+	console.log(s1.name);
+	s1.study();
+	
+	let s2 = {
+				name:null
+				, grade:0
+				, age:0
+				, gender:null
+				, study:function(){
+							console.log('공부한다');
+						}
+			};
+	s2.name = '조로';
+	console.log(s2.name);
+	s2.study();
+	
+	// 2) 객체를 반환하는 함수를 이용한다
+	let Student = function() { // function getStudent() {
+		return  {
+					name:null
+					, grade:0
+					, age:0
+					, gender:null
+					, study:function(){
+								console.log('공부한다');
+							}
+				};
+	}
+	let s3 = Student(); // 자바문법 Student s3 = new Student();
+	s3.name = '나미';
+	console.log(s3.name);
+	s3.study();
+	
+	// 3) 객체를 생성하는 함수(생성자)를 이용한다 -> 객체를 생성할 공간(new연산자가 반환)필요한다
+	let Student2 = function() { // this -> new연산자가 만들어낸 메모리 공간
+		this.name = null;
+		this.grade = 0;
+		this.age = 0;
+		this.gender = null;
+		this.study = function() {
+			console.log('공부한다');
+		}
+	};
+	let s4 = Student2(); // 생성자함수는 new연산자와 같이 사용되어야 한다. new 연산자가없으면 undefined값 반환
+	console.log(s4); // undefined
+	// console.log(s4.grade);
+	// s4.study();
+	let s4_2 = new Student2();
+	s4_2.name = '쵸파';
+	console.log(s4_2.name);
+	s4_2.study();
+	
+	// 4) 클래스 표현법을 사용한다
+	class Student3 {
+		constructor() {
+			this.name = null;
+			this.grade = 0;
+			this.age = 0;
+			this.gender = null;
+			this.study = function() {
+				console.log('공부한다');
+			}
+		}
+	} // -> 자바스크립트 내부적으로 3)번 형태로 변경된다 -> 클래스로 생성자를 표현하는 문법 트랜드?....
+	let s5 = new Student3();
+	s5.name = '상디';
+	console.log(s5.name);
+	s5.study();
+	
+	
+</script>
+</head>
+<body>
+</body>
+</html>

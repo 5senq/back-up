@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>주민번호 테스트</title>
+</head>
+<body>
+	<!-- 
+		sn1 입력 후 blur이벤트 발생시 -> sn2.focus()
+		sn2 입력 후 blur이벤트 발생시
+		1) 글자수 체크
+		2) 나이 출력
+			날짜 API 사용
+			let today = new Date();  
+		3) 성별 출력
+			검색사이트에서 주민번호 알고리즘 검색
+	-->
+	<form>
+		<table border="1">
+			<tr>
+				<td>주민번호</td>
+				<td>
+					<input type="text" id="sn1">
+					-
+					<input type="text" id="sn2">
+				</td>
+			</tr>
+			<tr>
+				<td>나이</td>
+				<td><input type="number" id="age" value="" readonly="readonly"></td>
+			</tr>
+			<tr>
+				<td>성별</td>
+				<td>
+					<input type="radio" name="gender" class="gender" id="male" onclick="return(false);">남
+					<input type="radio" name="gender" class="gender" id="female" onclick="return(false);">여
+				</td>
+			</tr>
+		</table>
+		<span id="snMsg" style="color:red;"></span>	
+	</form>
+	<script>		
+		const sn1Cnt = 6; // 앞자리 6 숫자
+		const sn2Cnt = 7; // 뒷자리 7 숫자
+		
+		let sn1 = document.querySelector('#sn1');
+		let sn2 = document.querySelector('#sn2');
+		
+		document.querySelector('#sn1').addEventListener('keyup', function() {
+			let sn1Len = sn1.value.length;
+			console.log(sn1Len);
+			if(sn1.value == '') { // 빈칸 입력시
+				alert('앞자리 6 숫자를 모두 입력해주세요.')
+			} else if(sn1Len > sn1Cnt) { // 6자리 이상 입력시
+				sn1.value = sn1.value.substring(0, sn1Cnt);
+				sn2.focus(); // sn2로 커서 옮겨가기
+			}
+		});
+		
+		document.querySelector('#sn2').addEventListener('keyup', function() {
+			let sn2Len = sn2.value.length;
+			console.log(sn2Len);
+			if(sn2.value == '') { // 빈칸 입력시
+				alert('뒷자리 7 숫자를 모두 입력해주세요.')
+			} else if(sn2Len > sn2Cnt) { // 6자리 이상 입력시
+				sn2.value = sn2.value.substring(0, sn2Cnt);
+			}
+		});
+		
+		sn2.addEventListener('blur', function() {
+			
+			let sn2FirstNum = sn2.value.substring(0,1); // 뒷자리 첫번째 숫자
+			let today = new Date(); // 현재 날짜
+			let year = today.getFullYear(); 
+			
+			if(sn1.value.length != sn1Cnt || sn2.value.length != sn2Cnt || sn2FirstNum == 0) { // 앞 6자리 미만, 뒤 7자리 미만, 뒷자리 첫번째 숫자가 0일시
+				document.querySelector('#snMsg').innerHTML = '주민번호를 다시 한번 확인해주세요.'
+			
+				if(sn2.value.substring(0,1) == '1' || sn2.value.substring(0,1) == '2') { // 20세기
+					year = '19'+ sn1.value.substring(0,2);
+				} else if(sn2.value.substring(0,1) == '3' || sn2.value.substring(0,1) == '4') { // 21세기
+					year = '20'+ sn1.value.substring(0,2);
+				}
+			}
+				
+				monthBirth = sn1.value.substring(2,4);
+				dayBirth = sn1.value.substring(4);
+				let birthday = new Date(year, (monthBirth - 1), dayBirth); // 생일
+				
+				let age = (today.getTime() - birthday.getTime()) / (1000*60*60*24*365); // 나이 계산
+				
+				document.querySelector('#age').value = Math.ceil(age); // 올림한 age 값을 출력
+			
+				let male = document.querySelector('#male');
+	 			let female = document.querySelector('#female');
+	 			
+	 			if(sn2FirstNum % 2 == 1) { // 남자
+	 				male.checked = true;
+	 			} else { // 여자
+	 				female.checked = true;
+	 			}
+			/*
+			} else {
+				let today = new Date(); // 올해연도
+				let year = today.getFullYear(); // 나이 구하기
+				let yearBirth = sn1.value.substring(0,2); // 출생연도
+
+				if(sn2FirstNum < 3 || (sn2FirstNum > 4 && sn2FirstNum < 7)) { // 20세기
+					let t20th = 19 + yearBirth;
+					let age = year - t20th + 1 // 한국식 나이 계산
+					document.querySelector('#age').value = age;
+				} else { // 21세기
+					let t21th = 20 + yearBirth;
+					let age = year - t21th + 1 // 한국식 나이 계산
+					document.querySelector('#age').value = age;
+				}
+			
+				
+			}			
+			*/
+		});		
+	</script>
+</body>
+</html>

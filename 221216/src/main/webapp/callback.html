@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	// 객체지향 방식
+	let play = function() {
+		alert('play');
+	}
+	
+	let flag = false;
+	if(flag) {
+		play();
+	} else {
+		console.log('Not play!');
+	}
+	
+	// 함수프로그래밍 방식
+	let exePlay = function(flag, callback) {
+		if(flag) {
+			callback();
+		} else {
+			console.log('Not play!');
+		}
+	}
+	
+	exePlay(false, play);
+	exePlay(true, function() {alert('Have nice day!')});
+	// exePlay(true, ()=>{alert('Have nice day!')});
+	
+</script>
+
+</head>
+<body>
+
+</body>
+</html>
